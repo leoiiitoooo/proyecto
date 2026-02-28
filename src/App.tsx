@@ -1,57 +1,101 @@
-import React, { useState } from "react";
-import Carta from "./componentes/Carta";
-import Modal from "./componentes/Modal";
-const jugadores = [
+import CardList from "./components/cartasAcomodadas";
+import type { Carta } from "./assets/Card";
+
+const dragonBallCards: Carta[] = [
   {
     id: 1,
-    nombre: "Michael Jordan",
-    imagen: "https://static.wikia.nocookie.net/nbastreet/images/9/97/FDB1BF72-3F75-446F-B4F2-000331AE638B.jpeg",
-    descripcion: "Considerado el mejor jugador de todos los tiempos, con seis campeonatos de la NBA.",
-    fuerza: 95,
-    defensa: 90,
+    name: "Goku (Ultra Instinto)",
+    attack: 99,
+    defense: 95,
+    image: "https://vignette.wikia.nocookie.net/dragonball/images/5/5b/Goku_Line_Art.png",
+    description: "El estado definitivo donde el cuerpo reacciona sin pensar. Su agilidad y poder rompen todos los límites conocidos."
   },
   {
     id: 2,
-    nombre: "LeBron James",
-    imagen: "https://c.files.bbci.co.uk/28C4/production/_128563401_gettyimages-1463993781.jpg",
-    descripcion: "Jugador versátil con múltiples campeonatos y MVPs, conocido por su fuerza física.",
-    fuerza: 92,
-    defensa: 88,
+    name: "Vegeta (Ultra Ego)",
+    attack: 97,
+    defense: 90,
+    image: "https://static.wikia.nocookie.net/dragonball/images/d/d3/Vegeta_DBS.png",
+    description: "Un poder basado en el instinto de destrucción. Cuanto más daño recibe, más fuerte y agresivo se vuelve en combate."
   },
   {
     id: 3,
-    nombre: "Stephen Curry",
-    imagen: "https://ewnqp79wvj7.exactdn.com/wp-content/uploads/2025/06/stephen-curry-mvp-finales-2022-warriors.jpg?strip=all",
-    descripcion: "Revolucionó el juego con su tiro de tres puntos, líder de los Golden State Warriors.",
-    fuerza: 85,
-    defensa: 70,
+    name: "Gohan Bestia",
+    attack: 96,
+    defense: 88,
+    image: "https://static.wikia.nocookie.net/dragonball/images/0/0d/Gohan_Beast.png",
+    description: "El despertar de un poder latente aterrador. Su mirada fría y su fuerza bruta superan incluso a los dioses."
   },
+  {
+    id: 4,
+    name: "Freezer Dorado",
+    attack: 92,
+    defense: 84,
+    image: "https://static.wikia.nocookie.net/dragonball/images/2/23/Golden_Frieza_DBS.png",
+    description: "El emperador del mal en su forma definitiva. Su elegancia es tan letal como sus rayos de energía destructiva."
+  },
+  {
+    id: 5,
+    name: "Broly (Super Saiyajin)",
+    attack: 98,
+    defense: 82,
+    image: "https://static.wikia.nocookie.net/dragonball/images/5/5d/Broly_DBS.png",
+    description: "Un guerrero de fuerza ilimitada que pierde el control. Su poder crece cada segundo, convirtiéndolo en un huracán de destrucción."
+  },
+  {
+    id: 6,
+    name: "Majin Buu",
+    attack: 88,
+    defense: 98,
+    image: "https://static.wikia.nocookie.net/dragonball/images/e/e3/Majin_Buu_DBS.png",
+    description: "Prácticamente indestructible gracias a su cuerpo elástico y capacidad de regeneración instantánea."
+  },
+  {
+    id: 7,
+    name: "Piccolo Orange",
+    attack: 90,
+    defense: 94,
+    image: "https://static.wikia.nocookie.net/dragonball/images/7/77/Orange_Piccolo.png",
+    description: "La evolución definitiva del guerrero Namekiano. Su cuerpo se vuelve masivo y su resistencia alcanza niveles divinos."
+  },
+  {
+    id: 8,
+    name: "Bills (Dios de la Destrucción)",
+    attack: 100,
+    defense: 96,
+    image: "https://static.wikia.nocookie.net/dragonball/images/3/3a/Beerus_DBS.png",
+    description: "Entidad encargada de mantener el equilibrio mediante la destrucción. Su técnica 'Hakai' puede borrar cualquier cosa de la existencia."
+  },
+  {
+    id: 9,
+    name: "Trunks del Futuro",
+    attack: 85,
+    defense: 80,
+    image: "https://static.wikia.nocookie.net/dragonball/images/d/d5/Trunks_DBS.png",
+    description: "Un espadachín experto que viaja por el tiempo para salvar el futuro. Su voluntad es su mayor arma."
+  },
+  {
+    id: 10,
+    name: "Cell Max",
+    attack: 94,
+    defense: 92,
+    image: "https://static.wikia.nocookie.net/dragonball/images/c/c5/Cell_Max.png",
+    description: "Un arma biológica de destrucción masiva. Una criatura sin mente diseñada solo para aniquilar todo a su paso."
+  }
 ];
 
-const App: React.FC = () => {
-  const [descripcionSeleccionada, setDescripcionSeleccionada] = useState<string | null>(null);
-
+function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 flex flex-col items-center justify-center p-10">
-      <h1 className="text-3xl font-extrabold mb-8 text-gray-800">🏀 Cartas de Jugadores de Básquet</h1>
+    <div className="min-h-screen bg-neutral-950 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-900/20 via-neutral-950 to-black text-white">
+      <main className="py-12">
+        <CardList cards={dragonBallCards} />
+      </main>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {jugadores.map((jugador) => (
-          <Carta
-            key={jugador.id}
-            {...jugador}
-            onClick={() => setDescripcionSeleccionada(jugador.descripcion)}
-          />
-        ))}
-      </div>
-
-      <Modal
-        mostrar={!!descripcionSeleccionada}
-        onClose={() => setDescripcionSeleccionada(null)}
-        contenido={descripcionSeleccionada || ""}
-      />
+      <footer className="text-center pb-12 opacity-50">
+        <div className="h-[1px] w-48 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto mb-4" />
+      </footer>
     </div>
   );
-};
+}
 
 export default App;
