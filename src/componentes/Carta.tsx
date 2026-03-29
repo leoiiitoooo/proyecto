@@ -1,45 +1,33 @@
 import React from "react";
+import type { ICarta } from "../types";
 
-export interface CartaProps {
-    id: number;
-    nombre: string;
-    imagen: string;
-    descripcion: string;
-    fuerza: number;
-    defensa: number;
-    onClick: () => void;
-}
-
-const Carta: React.FC<CartaProps> = ({ id, nombre, imagen, fuerza, defensa, onClick }) => {
+const Carta: React.FC<ICarta> = ({ nombre, imagen, fuerza, defensa, vida }) => {
     return (
-        <div
-            className="bg-gradient-to-b from-white to-gray-50 shadow-lg rounded-2xl p-6 w-80 cursor-pointer 
-            hover:shadow-2xl hover:-translate-y-1 transform transition duration-300"
-            onClick={onClick}
-        >
-            <div className="relative">
-                <img
-                    src={imagen}
-                    alt={nombre}
-                    className="w-full h-64 object-contain rounded-lg border border-gray-200 bg-gray-50"
-                />
-                <span className="absolute top-3 left-3 bg-blue-600 text-white text-sm px-3 py-1 rounded-md shadow">
-                    ID: {id}
-                </span>
+        <div className="group relative bg-neutral-900/80 backdrop-blur-md border border-white/10 shadow-xl rounded-2xl p-5 w-full max-w-70 transition-all duration-300 hover:border-orange-500/50">
+            <div className="relative h-48 mb-4 bg-neutral-800 rounded-lg overflow-hidden">
+                <img src={imagen} alt={nombre} className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500" />
             </div>
-
-            <h3 className="text-2xl font-extrabold mt-4 text-gray-800 tracking-wide">{nombre}</h3>
-
-            <div className="flex justify-between mt-5 text-base">
-                <span className="flex items-center gap-1 font-semibold text-red-600">
-                    🏀 Fuerza: <span className="text-gray-800">{fuerza}</span>
-                </span>
-                <span className="flex items-center gap-1 font-semibold text-blue-600">
-                    🛡 Defensa: <span className="text-gray-800">{defensa}</span>
-                </span>
+            <div className="mb-3">
+                <div className="flex justify-between text-[10px] mb-1 font-bold uppercase text-white/50">
+                    <span>Vida</span>
+                    <span className="text-green-400">{vida} HP</span>
+                </div>
+                <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-green-500 h-full transition-all" style={{ width: `${Math.min(vida, 100)}%` }} />
+                </div>
+            </div>
+            <h3 className="text-lg font-black text-white uppercase truncate">{nombre}</h3>
+            <div className="grid grid-cols-2 gap-2 mt-4">
+                <div className="bg-white/5 p-2 rounded-lg border border-white/5 flex flex-col items-center">
+                    <span className="text-[9px] text-red-500 font-bold uppercase">Atk</span>
+                    <span className="text-md font-bold">⚔️ {fuerza}</span>
+                </div>
+                <div className="bg-white/5 p-2 rounded-lg border border-white/5 flex flex-col items-center">
+                    <span className="text-[9px] text-blue-500 font-bold uppercase">Def</span>
+                    <span className="text-md font-bold">🛡️ {defensa}</span>
+                </div>
             </div>
         </div>
     );
 };
-
 export default Carta;
