@@ -1,4 +1,6 @@
 export interface ICarta {
+  attributes: any;
+  idCard: any;
     id: number;
     vida: number;
     nombre: string;
